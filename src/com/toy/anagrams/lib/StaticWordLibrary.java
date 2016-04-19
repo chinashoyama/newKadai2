@@ -31,6 +31,9 @@
 
 package com.toy.anagrams.lib;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -84,9 +87,10 @@ final class StaticWordLibrary extends WordLibrary {
         "hotjava",
         "vertex",
         "unsigned",
-        "traditional"};
+        "traditional"
+        };
 
-    private static final String[] SCRAMBLED_WORD_LIST = {
+    /*private static final String[] SCRAMBLED_WORD_LIST = {
     	"papel",
         "batsartcoin",
         "maibuguos",
@@ -133,16 +137,24 @@ final class StaticWordLibrary extends WordLibrary {
         "evtrxe",
         "nuisngde",
         "rtdatioialn"
-    };
-    public int[] random(){
-    	Random rand = new Random();
-    	int[] index = new int[WORD_LIST.length];
-    	for(int i=0;i<WORD_LIST.length;i++){
-    		int r = rand.nextInt(WORD_LIST.length);
-    		index[i] = r;
+    };*/
+    
+    
+    public String ranword(String correctword) {
+    	
+    	List<String> slist = new ArrayList<String>();
+    	for(int i = 0; i<correctword.length();i++){
+    		char correct = correctword.charAt(i);
+    		slist.add(String.valueOf(correct));
     	}
-    	return index;
+    	Collections.shuffle(slist);
+    	String ranword="";
+    	for(int i=0;i<slist.size();i++){
+    		ranword += slist.get(i);
+    	}
+    	return ranword;
     }
+    
     
     final static WordLibrary DEFAULT = new StaticWordLibrary();
 
@@ -157,10 +169,8 @@ final class StaticWordLibrary extends WordLibrary {
      * @param idx index of required word
      * @return word at that index in its natural form
      */
-    public String getWord(int idx) {
-    	int[] i = random();
-    	int a = i[idx];
-        return WORD_LIST[a];
+    public String getWord(int idx) {    	
+        return WORD_LIST[idx];
     }
 
     /**
@@ -168,10 +178,9 @@ final class StaticWordLibrary extends WordLibrary {
      * @param idx index of required word
      * @return word at that index in its scrambled form
      */
-    public String getScrambledWord(int idx) {
-    	int[] i = random();
-    	int a = i[idx];
-        return SCRAMBLED_WORD_LIST[a];
+    public String getScrambledWord(int idx) {   	
+    	String scrambledword = ranword(WORD_LIST[idx]);
+        return scrambledword;//SCRAMBLED_WORD_LIST[a];
     }
 
     /**
